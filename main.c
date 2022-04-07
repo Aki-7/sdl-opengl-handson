@@ -6,7 +6,7 @@
 
 #ifdef __APPLE__
 #include <SDL2/SDL.h>
-#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
 #else
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
@@ -37,7 +37,6 @@ int main()
   fprintf(stdout, "OpenGL Version: %s\n", version);
 
   glClearColor(0.0, 0.0, 1.0, 1.0);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   running = true;
   while (running)
@@ -54,6 +53,7 @@ int main()
         break;
       }
     }
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     SDL_GL_SwapWindow(window);
   }
 

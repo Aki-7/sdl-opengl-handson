@@ -6,7 +6,7 @@ I confirmed this worked with
 
 - macOS 12.1
   - Intel core i9
-  - AMD Radeon Pro 5500M)
+  - AMD Radeon Pro 5500M
   - OpenGL Version: 4.1 ATI-4.7.101
 
 - Ubuntu 20.04

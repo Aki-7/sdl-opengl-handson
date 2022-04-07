@@ -4,8 +4,14 @@
 
 #include <stdio.h>
 
+#ifdef __APPLE__
 #include <SDL2/SDL.h>
 #include <GLUT/glut.h>
+#else
+#include <SDL2/SDL.h>
+#include <GL/gl.h>
+#endif
+
 #include <stdbool.h>
 
 int main()
@@ -29,6 +35,9 @@ int main()
   const GLubyte *version = glGetString(GL_VERSION);
 
   fprintf(stdout, "OpenGL Version: %s\n", version);
+
+  glClearColor(0.0, 0.0, 1.0, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   running = true;
   while (running)

@@ -10,12 +10,17 @@ public_inc = include_directories('include')
 
 # dependencies
 dep_sdl = dependency('sdl2')
-dep_opengl = dependency('appleframeworks', modules: 'OpenGL')
 
 dependencies = [
   dep_sdl,
-  dep_opengl,
 ]
+
+system = host_machine.system()
+if system == 'darwin'
+  dependencies += dependency('appleframeworks', modules: 'OpenGL')
+elif system == 'linux'
+  dependencies += dependency('gl')
+endif
 
 sources = [
   'main.c'

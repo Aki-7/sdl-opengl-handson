@@ -16,7 +16,9 @@ I confirmed this worked with
 
 ## Dependencies
 
-Install [meson](https://mesonbuild.com/index.html) and [ninja](https://ninja-build.org/).
+- [meson](https://mesonbuild.com/index.html)
+- [ninja](https://ninja-build.org/)
+- [SDL2](https://www.libsdl.org/) (May be pre-installed in **macOS**)
 
 ## Build
 

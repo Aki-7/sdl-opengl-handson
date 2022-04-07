@@ -10,7 +10,7 @@ I confirmed this worked with
   - OpenGL Version: 4.1 ATI-4.7.101
 
 - Ubuntu 20.04
-  - Intel Core) i7-8700K
+  - Intel Core i7-8700K
   - GEFORCE RTX 3060
   - OpenGL Version: 4.6.0 NVIDIA 470.103.01
 

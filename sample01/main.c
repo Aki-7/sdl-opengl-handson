@@ -9,8 +9,10 @@
 #include <OpenGL/gl.h>
 #include <SDL2/SDL.h>
 #else
-#include <GL/gl.h>
+// clang-format off
 #include <GL/glew.h>
+#include <GL/gl.h>
+// clang-format on
 #include <SDL2/SDL.h>
 #endif
 

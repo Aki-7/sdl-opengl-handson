@@ -18,6 +18,7 @@ I confirmed this worked with
 
 - [meson](https://mesonbuild.com/index.html)
 - [ninja](https://ninja-build.org/)
+- [glew](http://glew.sourceforge.net/)
 - [SDL2](https://www.libsdl.org/) (May be pre-installed in **macOS**)
 
 ## Build

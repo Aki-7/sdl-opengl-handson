@@ -30,7 +30,7 @@ ninja -C build
 ## Run
 
 ```shell
-./build/app
+./build/sample00/app
 ```
 
 A window painted in blue will be displayed.

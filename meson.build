@@ -11,24 +11,13 @@ public_inc = include_directories('include')
 # dependencies
 dep_sdl = dependency('sdl2')
 
-dependencies = [
-  dep_sdl,
-]
-
 system = host_machine.system()
 if system == 'darwin'
-  dependencies += dependency('appleframeworks', modules: 'OpenGL')
+  dep_gl = dependency('appleframeworks', modules: 'OpenGL')
 elif system == 'linux'
-  dependencies += dependency('gl')
+  dep_gl = dependency('gl')
+else
+  assert(false, f'unsupported system: @system@')
 endif
 
-sources = [
-  'main.c'
-]
-
-executable(
-  'app',
-  sources,
-  install: false,
-  dependencies: dependencies,
-)
+subdir('sample00')

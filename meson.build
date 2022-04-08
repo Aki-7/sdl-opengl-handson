@@ -10,6 +10,8 @@ public_inc = include_directories('include')
 
 # dependencies
 dep_sdl = dependency('sdl2', fallback: ['sdl2', 'sdl2_dep'], default_options: ['werror=false'])
+dep_cglm = dependency('cglm', fallback : ['cglm', 'cglm_dep'])
+dep_glew = dependency('glew')
 
 system = host_machine.system()
 if system == 'darwin'
@@ -21,3 +23,4 @@ else
 endif
 
 subdir('sample00')
+subdir('sample01')

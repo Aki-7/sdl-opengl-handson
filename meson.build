@@ -12,6 +12,7 @@ public_inc = include_directories('include')
 dep_sdl = dependency('sdl2', fallback: ['sdl2', 'sdl2_dep'], default_options: ['werror=false'])
 dep_cglm = dependency('cglm', fallback : ['cglm', 'cglm_dep'])
 dep_glew = dependency('glew')
+dep_m = meson.get_compiler('c').find_library('m')
 
 system = host_machine.system()
 if system == 'darwin'

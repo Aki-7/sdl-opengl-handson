@@ -24,3 +24,5 @@ endif
 
 subdir('sample00')
 subdir('sample01')
+subdir('handson-util')
+subdir('sample02')

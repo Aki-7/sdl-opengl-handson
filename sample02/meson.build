@@ -3,6 +3,7 @@ deps_sample02 = [
   dep_gl,
   dep_glew,
   dep_handson_util,
+  dep_m,
   dep_sdl,
 ]
 

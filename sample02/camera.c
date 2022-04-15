@@ -33,8 +33,8 @@ camera_destroy(struct camera* camera)
 void
 camera_get_view_projection(struct camera* camera, mat4 matrix)
 {
-  float a = tanf(camera->horizontal_fov / 2);
-  float b = tanf(camera->vertical_fov / 2);
+  float a = 1 / tanf(camera->horizontal_fov / 2);
+  float b = 1 / tanf(camera->vertical_fov / 2);
   float n_f = camera->near_clip - camera->far_clip;
   float c = camera->far_clip / n_f;
   float d = camera->far_clip * camera->near_clip / n_f;

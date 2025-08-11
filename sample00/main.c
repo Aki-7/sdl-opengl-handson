@@ -5,34 +5,29 @@
 #include <stdio.h>
 
 #ifdef __APPLE__
-#include <SDL.h>
 #include <OpenGL/gl.h>
-#else
 #include <SDL.h>
+#else
 #include <GL/gl.h>
+#include <SDL.h>
 #endif
 
 #include <stdbool.h>
 
-int main(void)
-{
+int main(void) {
   int running = 0;
   SDL_Event event;
 
-  if (SDL_Init(SDL_INIT_VIDEO) < 0)
-  {
+  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
     return 1;
   }
 
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-  SDL_Window *window = SDL_CreateWindow(
-    "OpenGL Hands-on",
-    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    640, 480,
-    SDL_WINDOW_OPENGL
-  );
+  SDL_Window *window =
+      SDL_CreateWindow("OpenGL Hands-on", SDL_WINDOWPOS_UNDEFINED,
+                       SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
 
   SDL_GLContext ctx = SDL_GL_CreateContext(window);
 
@@ -43,12 +38,9 @@ int main(void)
   glClearColor(0.0, 0.0, 1.0, 1.0);
 
   running = true;
-  while (running)
-  {
-    while (SDL_PollEvent(&event))
-    {
-      switch (event.type)
-      {
+  while (running) {
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
       case SDL_QUIT:
         running = false;
         break;

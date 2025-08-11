@@ -4,10 +4,9 @@
 
 I confirmed this worked with
 
-- macOS 12.1
-  - Intel core i9
-  - AMD Radeon Pro 5500M
-  - OpenGL Version: 4.1 ATI-4.7.101
+- macOS 15.5
+  - Apple M4
+  - OpenGL Version: 4.1
 
 - Ubuntu 20.04
   - Intel Core i7-8700K
@@ -18,7 +17,6 @@ I confirmed this worked with
 
 - [meson](https://mesonbuild.com/index.html)
 - [ninja](https://ninja-build.org/)
-- [SDL2](https://www.libsdl.org/) (May be pre-installed in **macOS**)
 
 ## Build
 

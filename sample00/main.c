@@ -27,10 +27,14 @@ int main(void)
 
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-  SDL_Window *window = SDL_CreateWindow("OpenGL Handson", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
+  SDL_Window *window = SDL_CreateWindow(
+    "OpenGL Hands-on",
+    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    640, 480,
+    SDL_WINDOW_OPENGL
+  );
 
   SDL_GLContext ctx = SDL_GL_CreateContext(window);
-  (void)ctx;
 
   const GLubyte *version = glGetString(GL_VERSION);
 
@@ -56,6 +60,8 @@ int main(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     SDL_GL_SwapWindow(window);
   }
+
+  SDL_GL_DeleteContext(ctx);
 
   return 0;
 }

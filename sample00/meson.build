@@ -3,13 +3,13 @@ deps_sample00 = [
   dep_gl,
 ]
 
-srcs_sample00 = [
+src_sample00 = [
   'main.c'
 ]
 
 executable(
   'app',
-  srcs_sample00,
+  src_sample00,
   install: false,
   dependencies: deps_sample00,
 )

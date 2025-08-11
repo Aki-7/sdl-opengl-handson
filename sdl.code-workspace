@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "llvm-vs-code-extensions.vscode-clangd",
+      "mesonbuild.mesonbuild"
+    ]
+  },
+  "settings": {
+    "cSpell.words": [
+      "appleframeworks",
+      "elif",
+      "OPENGL"
+    ]
+  }
+}

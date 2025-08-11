@@ -23,7 +23,7 @@ else
   assert(false, f'unsupported system: @system@')
 endif
 
+subdir('handson-util')
 subdir('sample00')
 subdir('sample01')
-subdir('handson-util')
 subdir('sample02')

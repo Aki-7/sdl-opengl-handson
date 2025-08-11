@@ -4,6 +4,16 @@
 #include <handson-util/shader-compiler.h>
 #include <stdlib.h>
 
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
+// clang-format off
+#include <GL/gl.h>
+// clang-format on
+#endif
+
+#include "camera.h"
+
 #define GLSL(str) (const char *)"#version 410\n" #str
 
 static const char *simple_vertex_shader = GLSL(
@@ -65,7 +75,7 @@ opengl_cube_create(vec3 half_size, vec3 position, versor quaternion)
 
   cube->program_id = handson_util_generate_and_compile_opengl_programs(
       simple_vertex_shader, simple_fragment_shader);
-  if (cube->program_id == 0) {
+  if (cube->program_id <= 0) {
     fprintf(stderr, "failed to setup shader programs\n");
     goto err_shader;
   }
@@ -98,11 +108,14 @@ err:
 void
 opengl_cube_destroy(struct opengl_cube *cube)
 {
+  glDeleteProgram(cube->program_id);
+  glDeleteBuffers(1, &cube->vbo_id);
+  glDeleteVertexArrays(1, &cube->vao_id);
   free(cube);
 }
 
 void
-opengl_cube_render(struct opengl_cube *cube, struct camera *camera)
+opengl_cube_draw(struct opengl_cube *cube, struct camera *camera)
 {
   mat4 mvp, view_projection, rotate, model = GLM_MAT4_IDENTITY_INIT;
 

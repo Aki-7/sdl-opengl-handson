@@ -12,6 +12,6 @@
   },
   "settings": {
     "editor.formatOnSave": true,
-    "cSpell.words": ["appleframeworks", "elif", "OPENGL"]
+    "cSpell.words": ["appleframeworks", "elif", "glew", "handson", "OPENGL"]
   }
 }

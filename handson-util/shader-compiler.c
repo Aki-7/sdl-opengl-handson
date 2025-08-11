@@ -1,4 +1,5 @@
 #include <handson-util/shader-compiler.h>
+#include <stdio.h>
 
 static void
 print_shader_compilation_error_log(GLuint shader_id)
@@ -64,18 +65,18 @@ handson_util_generate_and_compile_opengl_programs(
 
   if (compile_opengl_program(id, vertex_shader_source, GL_VERTEX_SHADER) != 0) {
     glDeleteProgram(id);
-    return 0;
+    return -1;
   }
 
   if (compile_opengl_program(id, fragment_shader_source, GL_FRAGMENT_SHADER) !=
       0) {
     glDeleteProgram(id);
-    return 0;
+    return -1;
   }
 
   if (link_program(id) != 0) {
     glDeleteProgram(id);
-    return 0;
+    return -1;
   }
 
   return id;

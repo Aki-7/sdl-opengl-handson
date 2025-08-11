@@ -1,5 +1,4 @@
-#ifndef OPENGL_HANDSON_SAMPLE02_CAMERA_H
-#define OPENGL_HANDSON_SAMPLE02_CAMERA_H
+#pragma once
 
 #include <cglm/cglm.h>
 
@@ -31,5 +30,3 @@ void camera_get_view_projection(struct camera* camera, mat4 matrix);
 //            /  |
 //           /   |
 //       +z /    | -y
-
-#endif  //  OPENGL_HANDSON_SAMPLE02_CAMERA_H

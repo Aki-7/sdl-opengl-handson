@@ -2,21 +2,18 @@
 #define GL_SILENCE_DEPRECATION
 #endif
 
+#include <GL/glew.h>
+#include <SDL.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 #ifdef __APPLE__
-#include <GL/glew.h>
 #include <OpenGL/gl.h>
-#include <SDL.h>
 #else
 // clang-format off
-#include <GL/glew.h>
 #include <GL/gl.h>
 // clang-format on
-#include <SDL.h>
 #endif
-
-#include <stdbool.h>
 
 #include "opengl-square.h"
 
@@ -53,7 +50,7 @@ main(void)
 
   if (glewInit() != GLEW_OK) {
     fprintf(stderr, "Unable to initialize GLEW\n");
-    goto err;
+    goto err_ctx;
   }
 
   fprintf(stdout, "OpenGL Version: %s\n", glGetString(GL_VERSION));
@@ -61,7 +58,7 @@ main(void)
   square = opengl_square_create();
   if (square == NULL) {
     fprintf(stderr, "Unable to create a opengl_square object\n");
-    goto err;
+    goto err_ctx;
   }
 
   glViewport(0, 0, width, height);
@@ -89,9 +86,12 @@ main(void)
 
   exit_code = 0;
 
-err:
-  if (square) opengl_square_destroy(square);
+  opengl_square_destroy(square);
 
+err_ctx:
+  SDL_GL_DeleteContext(ctx);
+
+err:
   SDL_Quit();
 
   return exit_code;

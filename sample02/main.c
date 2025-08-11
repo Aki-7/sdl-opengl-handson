@@ -2,22 +2,19 @@
 #define GL_SILENCE_DEPRECATION
 #endif
 
+#include <GL/glew.h>
+#include <SDL.h>
+#include <cglm/cglm.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 #ifdef __APPLE__
-#include <GL/glew.h>
 #include <OpenGL/gl.h>
-#include <SDL.h>
 #else
 // clang-format off
-#include <GL/glew.h>
 #include <GL/gl.h>
 // clang-format on
-#include <SDL.h>
 #endif
-
-#include <cglm/cglm.h>
-#include <stdbool.h>
 
 #include "camera.h"
 #include "opengl-cube.h"
@@ -71,7 +68,7 @@ main(void)
 
   if (glewInit() != GLEW_OK) {
     fprintf(stderr, "Unable to initialize GLEW\n");
-    goto err;
+    goto err_ctx;
   }
 
   fprintf(stdout, "OpenGL Version: %s\n", glGetString(GL_VERSION));
@@ -82,9 +79,17 @@ main(void)
   // glm_quat(camera_quaternion, M_PI_2 / 9, 0.0, 1.0, 0.0);
   camera = camera_create(camera_position, camera_quaternion, camera_far_clip,
       camera_near_clip, camera_vertical_fov, camera_horizontal_fov);
+  if (camera == NULL) {
+    fprintf(stderr, "Unable to create a camera object\n");
+    goto err_ctx;
+  }
 
   // glm_quat(cube_quaternion, M_PI_2 / 3, 1.0, 0.0, 0.0);
   cube = opengl_cube_create(cube_half_size, cube_position, cube_quaternion);
+  if (cube == NULL) {
+    fprintf(stderr, "Unable to create a opengl_cube object\n");
+    goto err_camera;
+  }
 
   Uint32 lastTime = SDL_GetTicks();
 
@@ -104,19 +109,27 @@ main(void)
     Uint32 currentTime = SDL_GetTicks();
     Uint32 elapsedTime = currentTime - lastTime;
     lastTime = currentTime;
-    double rotationSpeed = M_PI; // radians per second
+    double rotationSpeed = M_PI;  // radians per second
     double rotationAngle = rotationSpeed * (double)elapsedTime / 1000.0;
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     opengl_cube_rotate(cube, rotationAngle, 0.0, 1.0, 0.0);
-    opengl_cube_render(cube, camera);
+    opengl_cube_draw(cube, camera);
 
     SDL_GL_SwapWindow(window);
   }
 
   exit_code = 0;
+
+  opengl_cube_destroy(cube);
+
+err_camera:
+  camera_destroy(camera);
+
+err_ctx:
+  SDL_GL_DeleteContext(ctx);
 
 err:
   SDL_Quit();

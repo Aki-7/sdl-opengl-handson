@@ -1,8 +1,17 @@
 #include "opengl-square.h"
 
+#include <SDL.h>
 #include <cglm/cglm.h>
+#include <handson-util/shader-compiler.h>
+#include <stdlib.h>
 
-#include "stdlib.h"
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
+// clang-format off
+#include <GL/gl.h>
+// clang-format on
+#endif
 
 vec3 vertices[] = {
     {+0.5, +0.5, 0},
@@ -32,87 +41,6 @@ static const char *simple_fragment_shader =
     "}\n";
 
 static void
-print_shader_compilation_error_log(GLuint shader_id)
-{
-  int log_length = 0;
-  glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_length);
-
-  char log_message[log_length];
-  glGetShaderInfoLog(shader_id, log_length, NULL, log_message);
-
-  fprintf(stderr, "%s", log_message);
-}
-
-static int
-compile_opengl_program(GLuint program_id, const char *source, int shader_type)
-{
-  GLuint shader_id = glCreateShader(shader_type);
-  glShaderSource(shader_id, 1, &source, NULL);
-  glCompileShader(shader_id);
-
-  GLint shader_compiled = GL_FALSE;
-  glGetShaderiv(shader_id, GL_COMPILE_STATUS, &shader_compiled);
-  if (shader_compiled != GL_TRUE) {
-    print_shader_compilation_error_log(shader_id);
-    glDeleteShader(shader_id);
-    return -1;
-  }
-  glAttachShader(program_id, shader_id);
-  glDeleteShader(shader_id);
-  return 0;
-}
-
-static int
-link_program(GLuint program_id)
-{
-  GLint link_success = GL_FALSE;
-
-  glLinkProgram(program_id);
-
-  glGetProgramiv(program_id, GL_LINK_STATUS, &link_success);
-  if (link_success != GL_TRUE) {
-    int log_length = 0;
-    glGetProgramiv(program_id, GL_INFO_LOG_LENGTH, &log_length);
-
-    char log_message[log_length];
-    glGetProgramInfoLog(program_id, log_length, NULL, log_message);
-
-    fprintf(stderr, "%s", log_message);
-
-    return -1;
-  }
-
-  return 0;
-}
-
-static GLuint
-generate_and_compile_opengl_programs(
-    const char *vertex_shader_source, const char *fragment_shader_source)
-{
-  GLuint id = glCreateProgram();
-
-  if (vertex_shader_source == NULL || fragment_shader_source == NULL) return -1;
-
-  if (compile_opengl_program(id, vertex_shader_source, GL_VERTEX_SHADER) != 0) {
-    glDeleteProgram(id);
-    return 0;
-  }
-
-  if (compile_opengl_program(id, fragment_shader_source, GL_FRAGMENT_SHADER) !=
-      0) {
-    glDeleteProgram(id);
-    return 0;
-  }
-
-  if (link_program(id) != 0) {
-    glDeleteProgram(id);
-    return 0;
-  }
-
-  return id;
-}
-
-static void
 opengl_square_fill_buffer(struct opengl_square *square)
 {
   glBindBuffer(GL_ARRAY_BUFFER, square->vbo_id);
@@ -128,9 +56,9 @@ opengl_square_create(void)
   square = malloc(sizeof *square);
   if (square == NULL) goto err;
 
-  square->program_id = generate_and_compile_opengl_programs(
+  square->program_id = handson_util_generate_and_compile_opengl_programs(
       simple_vertex_shader, simple_fragment_shader);
-  if (square->program_id == 0) {
+  if (square->program_id <= 0) {
     fprintf(stderr, "failed to setup shader programs\n");
     goto err_shader;
   }

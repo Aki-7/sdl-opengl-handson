@@ -7,7 +7,7 @@ deps_sample02 = [
   dep_sdl,
 ]
 
-srcs_sample02 = [
+src_sample02 = [
   'main.c',
   'camera.c',
   'opengl-cube.c',
@@ -15,7 +15,7 @@ srcs_sample02 = [
 
 executable(
   'app',
-  srcs_sample02,
+  src_sample02,
   install: false,
   dependencies: deps_sample02,
 )

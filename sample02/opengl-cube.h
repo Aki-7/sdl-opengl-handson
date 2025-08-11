@@ -1,21 +1,9 @@
-#ifndef OPENGL_HANDSON_SAMPLE02_OPENGL_CUBE_H
-#define OPENGL_HANDSON_SAMPLE02_OPENGL_CUBE_H
+#pragma once
 
+#include <GL/glew.h>
 #include <cglm/cglm.h>
 
-#ifdef __APPLE__
-#include <GL/glew.h>
-#include <OpenGL/gl.h>
-#include <SDL.h>
-#else
-// clang-format off
-#include <GL/glew.h>
-#include <GL/gl.h>
-// clang-format on
-#include <SDL.h>
-#endif
-
-#include "camera.h"
+struct camera;
 
 struct opengl_cube {
   vec3 half_size;  // meter
@@ -32,9 +20,7 @@ struct opengl_cube *opengl_cube_create(
 
 void opengl_cube_destroy(struct opengl_cube *cube);
 
-void opengl_cube_render(struct opengl_cube *cube, struct camera *camera);
+void opengl_cube_draw(struct opengl_cube *cube, struct camera *camera);
 
 void opengl_cube_rotate(struct opengl_cube *cube, float angle /*radian*/,
     float x, float y, float z);
-
-#endif  //  OPENGL_HANDSON_SAMPLE02_OPENGL_CUBE_H

@@ -1,6 +1,7 @@
 deps_handson_util = [
   dep_gl,
   dep_glew,
+  dep_sdl,
 ]
 
 srcs_handson_util = [

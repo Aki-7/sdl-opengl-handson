@@ -121,7 +121,7 @@ opengl_square_fill_buffer(struct opengl_square *square)
 }
 
 struct opengl_square *
-opengl_square_create()
+opengl_square_create(void)
 {
   struct opengl_square *square;
 

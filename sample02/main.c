@@ -7,13 +7,13 @@
 #ifdef __APPLE__
 #include <GL/glew.h>
 #include <OpenGL/gl.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #else
 // clang-format off
 #include <GL/glew.h>
 #include <GL/gl.h>
 // clang-format on
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #endif
 
 #include <cglm/cglm.h>
@@ -37,7 +37,7 @@ static int view_width = 640;
 static int view_height = 640;
 
 int
-main()
+main(void)
 {
   int running = 0;
   int exit_code = 1;
@@ -86,6 +86,8 @@ main()
   // glm_quat(cube_quaternion, M_PI_2 / 3, 1.0, 0.0, 0.0);
   cube = opengl_cube_create(cube_half_size, cube_position, cube_quaternion);
 
+  Uint32 lastTime = SDL_GetTicks();
+
   running = true;
   while (running) {
     while (SDL_PollEvent(&event)) {
@@ -99,10 +101,16 @@ main()
       }
     }
 
+    Uint32 currentTime = SDL_GetTicks();
+    Uint32 elapsedTime = currentTime - lastTime;
+    lastTime = currentTime;
+    double rotationSpeed = M_PI; // radians per second
+    double rotationAngle = rotationSpeed * (double)elapsedTime / 1000.0;
+
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    opengl_cube_rotate(cube, M_PI / 120, 0.0, 1.0, 0.0);
+    opengl_cube_rotate(cube, rotationAngle, 0.0, 1.0, 0.0);
     opengl_cube_render(cube, camera);
 
     SDL_GL_SwapWindow(window);

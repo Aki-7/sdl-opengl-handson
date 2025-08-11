@@ -4,13 +4,13 @@
 #ifdef __APPLE__
 #include <GL/glew.h>
 #include <OpenGL/gl.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #else
 // clang-format off
 #include <GL/glew.h>
 #include <GL/gl.h>
 // clang-format on
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #endif
 
 struct opengl_square {
@@ -19,7 +19,7 @@ struct opengl_square {
   GLuint program_id;
 };
 
-struct opengl_square *opengl_square_create();
+struct opengl_square *opengl_square_create(void);
 
 void opengl_square_destroy(struct opengl_square *square);
 

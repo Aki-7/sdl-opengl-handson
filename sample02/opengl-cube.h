@@ -6,13 +6,13 @@
 #ifdef __APPLE__
 #include <GL/glew.h>
 #include <OpenGL/gl.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #else
 // clang-format off
 #include <GL/glew.h>
 #include <GL/gl.h>
 // clang-format on
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #endif
 
 #include "camera.h"

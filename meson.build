@@ -9,7 +9,11 @@ project(
 public_inc = include_directories('include')
 
 # dependencies
-dep_sdl = dependency('sdl2')
+dep_sdl = dependency(
+  'sdl2',
+  fallback: ['sdl2', 'sdl2_dep'],
+  default_options: ['werror=false']
+)
 
 system = host_machine.system()
 if system == 'darwin'

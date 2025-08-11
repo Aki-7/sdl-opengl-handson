@@ -5,16 +5,16 @@
 #include <stdio.h>
 
 #ifdef __APPLE__
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <OpenGL/gl.h>
 #else
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <GL/gl.h>
 #endif
 
 #include <stdbool.h>
 
-int main()
+int main(void)
 {
   int running = 0;
   SDL_Event event;

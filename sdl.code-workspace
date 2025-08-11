@@ -11,11 +11,7 @@
     ]
   },
   "settings": {
-     "editor.formatOnSave": true,
-    "cSpell.words": [
-      "appleframeworks",
-      "elif",
-      "OPENGL"
-    ]
+    "editor.formatOnSave": true,
+    "cSpell.words": ["appleframeworks", "elif", "OPENGL"]
   }
 }
